@@ -1,0 +1,157 @@
+# serializer version: 1
+# name: test_template_snapshot
+  dict({
+    'Parameters': dict({
+      'BootstrapVersion': dict({
+        'Default': '/cdk-bootstrap/hnb659fds/version',
+        'Description': 'Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]',
+        'Type': 'AWS::SSM::Parameter::Value<String>',
+      }),
+    }),
+    'Resources': dict({
+      'MyBucketF68F3FF0': dict({
+        'DeletionPolicy': 'Retain',
+        'Properties': dict({
+          'BucketEncryption': dict({
+            'ServerSideEncryptionConfiguration': list([
+              dict({
+                'ServerSideEncryptionByDefault': dict({
+                  'SSEAlgorithm': 'AES256',
+                }),
+              }),
+            ]),
+          }),
+          'BucketName': 'my-bucket-56e143c0',
+          'LifecycleConfiguration': dict({
+            'Rules': list([
+              dict({
+                'AbortIncompleteMultipartUpload': dict({
+                  'DaysAfterInitiation': 7,
+                }),
+                'ExpirationInDays': 7,
+                'NoncurrentVersionExpiration': dict({
+                  'NoncurrentDays': 30,
+                }),
+                'Status': 'Enabled',
+                'Transitions': list([
+                  dict({
+                    'StorageClass': 'INTELLIGENT_TIERING',
+                    'TransitionInDays': 60,
+                  }),
+                ]),
+              }),
+            ]),
+          }),
+          'OwnershipControls': dict({
+            'Rules': list([
+              dict({
+                'ObjectOwnership': 'BucketOwnerEnforced',
+              }),
+            ]),
+          }),
+          'PublicAccessBlockConfiguration': dict({
+            'BlockPublicAcls': True,
+            'BlockPublicPolicy': True,
+            'IgnorePublicAcls': True,
+            'RestrictPublicBuckets': True,
+          }),
+          'VersioningConfiguration': dict({
+            'Status': 'Enabled',
+          }),
+        }),
+        'Type': 'AWS::S3::Bucket',
+        'UpdateReplacePolicy': 'Retain',
+      }),
+      'MyLambdaRole6064C0FA': dict({
+        'Properties': dict({
+          'AssumeRolePolicyDocument': dict({
+            'Statement': list([
+              dict({
+                'Action': 'sts:AssumeRole',
+                'Effect': 'Allow',
+                'Principal': dict({
+                  'Service': 'lambda.amazonaws.com',
+                }),
+              }),
+            ]),
+            'Version': '2012-10-17',
+          }),
+        }),
+        'Type': 'AWS::IAM::Role',
+      }),
+      'MyLambdaRoleDefaultPolicyF04EC3D5': dict({
+        'Properties': dict({
+          'PolicyDocument': dict({
+            'Statement': list([
+              dict({
+                'Action': list([
+                  's3:GetObject*',
+                  's3:GetBucket*',
+                  's3:List*',
+                ]),
+                'Effect': 'Allow',
+                'Resource': list([
+                  dict({
+                    'Fn::GetAtt': list([
+                      'MyBucketF68F3FF0',
+                      'Arn',
+                    ]),
+                  }),
+                  dict({
+                    'Fn::Join': list([
+                      '',
+                      list([
+                        dict({
+                          'Fn::GetAtt': list([
+                            'MyBucketF68F3FF0',
+                            'Arn',
+                          ]),
+                        }),
+                        '/*',
+                      ]),
+                    ]),
+                  }),
+                ]),
+              }),
+            ]),
+            'Version': '2012-10-17',
+          }),
+          'PolicyName': 'MyLambdaRoleDefaultPolicyF04EC3D5',
+          'Roles': list([
+            dict({
+              'Ref': 'MyLambdaRole6064C0FA',
+            }),
+          ]),
+        }),
+        'Type': 'AWS::IAM::Policy',
+      }),
+    }),
+    'Rules': dict({
+      'CheckBootstrapVersion': dict({
+        'Assertions': list([
+          dict({
+            'Assert': dict({
+              'Fn::Not': list([
+                dict({
+                  'Fn::Contains': list([
+                    list([
+                      '1',
+                      '2',
+                      '3',
+                      '4',
+                      '5',
+                    ]),
+                    dict({
+                      'Ref': 'BootstrapVersion',
+                    }),
+                  ]),
+                }),
+              ]),
+            }),
+            'AssertDescription': "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+          }),
+        ]),
+      }),
+    }),
+  })
+# ---

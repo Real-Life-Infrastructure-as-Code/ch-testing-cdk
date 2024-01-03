@@ -1,0 +1,22 @@
+[tool.poetry]
+authors = ["Andre Sionek <andre@sionek.com>"]
+name = " Chapter: Testing CDK Constructs"
+description = "Code for the book Real Life Infrastructure as Code with AWS CDK" # noqa
+keywords = ['cdk', 'iac', 'infrastructure', 'devops', 'python', 'backend', "platform"] # noqa
+readme = "README.md"
+homepage = "https://real-life-infrastructure-as-code.com/"
+version = "0.0.0"
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+aws-cdk-lib = "^2.99.0"
+
+
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.3"     # Allows for testing of the project
+pytest-cov = "^4.1.0" # Allows to run coverage of the project
+syrupy = "^4.6.0"     # Allows testing snapshots
