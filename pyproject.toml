@@ -1,10 +1,10 @@
 [tool.poetry]
-authors = ["Andre Sionek <andre@sionek.com>"]
+authors = ["Andre Sionek <andre@real-life-iac.com>"]
 name = "ch-testing-cdk"
 description = "Code for the book Real Life Infrastructure as Code with AWS CDK" # noqa
 keywords = ['cdk', 'iac', 'infrastructure', 'devops', 'python', 'backend', "platform"] # noqa
 readme = "README.md"
-homepage = "https://real-life-infrastructure-as-code.com/"
+homepage = "https://real-life-iac.com/"
 version = "0.0.0"
 
 
