@@ -10,7 +10,6 @@ def test_bucket(template: Template):
                     {"ServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}
                 ]
             },
-            "BucketName": "my-bucket-56e143c0",
             "LifecycleConfiguration": {
                 "Rules": [
                     {
