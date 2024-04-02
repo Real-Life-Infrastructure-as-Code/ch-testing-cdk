@@ -21,7 +21,6 @@
               }),
             ]),
           }),
-          'BucketName': 'my-bucket-56e143c0',
           'LifecycleConfiguration': dict({
             'Rules': list([
               dict({

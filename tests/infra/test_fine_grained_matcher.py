@@ -6,6 +6,21 @@ def test_bucket_name(template: Template):
     template.has_resource_properties(
         type="AWS::S3::Bucket",
         props={
-            "BucketName": Match.string_like_regexp(pattern="my-bucket-*")
+            "LifecycleConfiguration": {
+                "Rules": [
+                    {
+                        "AbortIncompleteMultipartUpload": {"DaysAfterInitiation": Match.any_value()},
+                        "ExpirationInDays": Match.any_value(),
+                        "NoncurrentVersionExpiration": {"NoncurrentDays": Match.any_value()},
+                        "Status": "Enabled",
+                        "Transitions": [
+                            {
+                                "StorageClass": "INTELLIGENT_TIERING",
+                                "TransitionInDays": Match.any_value(),
+                            }
+                        ],
+                    }
+                ]
+            }
         }
     )

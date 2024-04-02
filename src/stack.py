@@ -20,7 +20,6 @@ class MyStack(cdk.Stack):
         bucket = s3.Bucket(
             scope=self,
             id="MyBucket",
-            bucket_name="my-bucket-56e143c0",
             encryption=s3.BucketEncryption.S3_MANAGED,
             block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
             lifecycle_rules=[
