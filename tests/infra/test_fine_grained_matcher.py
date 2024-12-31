@@ -1,5 +1,5 @@
-from aws_cdk.assertions import Template
 from aws_cdk.assertions import Match
+from aws_cdk.assertions import Template
 
 
 def test_bucket_lifecycle_config(template: Template):
@@ -9,9 +9,7 @@ def test_bucket_lifecycle_config(template: Template):
             "LifecycleConfiguration": {
                 "Rules": [
                     {
-                        "AbortIncompleteMultipartUpload": {
-                            "DaysAfterInitiation": 7
-                        },
+                        "AbortIncompleteMultipartUpload": {"DaysAfterInitiation": 7},
                         "ExpirationInDays": 7,
                         "NoncurrentVersionExpiration": {
                             "NoncurrentDays": Match.any_value()
@@ -26,5 +24,5 @@ def test_bucket_lifecycle_config(template: Template):
                     }
                 ]
             }
-        }
+        },
     )
